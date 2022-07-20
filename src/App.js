@@ -9,6 +9,9 @@ import { loadFull } from "tsparticles";
 import "tsparticles";
 import Clarifai from "clarifai";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
+import SignIn from "./components/SignIn/SignIn";
+import Register from "./components/Register/Register";
+
 
 //console.log(Clarifai);
 const particlesOptions = 
@@ -99,9 +102,9 @@ class App extends Component {
     this.state = {
       input: "",
       imageUrl: "",
-      box: {
-
-      }
+      box: {},
+      route: "signin",
+      signedIn: false
     };
   }
 
@@ -141,7 +144,17 @@ class App extends Component {
       
   }
 
+  onRouteChange = route => {
+    if(route === "signout")
+      this.setState({signedIn: false});
+    else if(route === "home")
+      this.setState({signedIn: true});
+
+    this.setState({route: route});
+  }
+
   render() {
+    const { signedIn, box, input, route, imageUrl } = this.state;
     return (
       <div className="App">
         <Particles
@@ -150,13 +163,25 @@ class App extends Component {
           init={particlesInit}
           options={particlesOptions}
       />
-        <Navigation />
-        <Logo />
-        <Rank />
-        <ImageLinkForm 
-          onInputChange={this.onInputChange} 
-          onSubmit={this.onSubmit}/>
-        <FaceRecognition box={this.state.box} imageUrl={this.state.input} />
+        <Navigation onRouteChange={this.onRouteChange} signedIn={signedIn} />
+        {route === "home" ? 
+          <div> 
+            <Logo />
+            <Rank />
+            <ImageLinkForm 
+              onInputChange={this.onInputChange} 
+              onSubmit={this.onSubmit}/>
+            <FaceRecognition box={this.state.box} imageUrl={input} />
+        </div>
+        : 
+          (
+            this.state.route === "signin" ?
+              <SignIn onRouteChange={this.onRouteChange} /> 
+            : 
+              <Register onRouteChange={this.onRouteChange} />
+          )
+          
+        }
       </div>
     )
   }
