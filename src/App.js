@@ -104,8 +104,25 @@ class App extends Component {
       imageUrl: "",
       box: {},
       route: "signin",
-      signedIn: false
+      signedIn: false,
+      user: {
+        id: "",
+        name: "",
+        email:"",
+        entries: 0,
+        joined: new Date()
+      }
     };
+  }
+
+  loadUser = data => {
+    this.setState({user: {
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      entries: data.entries,
+      joined: data.joined
+    }});
   }
 
   calculateFaceLocation = data => {
@@ -154,7 +171,8 @@ class App extends Component {
   }
 
   render() {
-    const { signedIn, box, input, route, imageUrl } = this.state;
+    const { signedIn, box, input, route, imageUrl} = this.state;
+    const { name, entries } = this.state.user; 
     return (
       <div className="App">
         <Particles
@@ -167,7 +185,7 @@ class App extends Component {
         {route === "home" ? 
           <div> 
             <Logo />
-            <Rank />
+            <Rank name={name} entries={entries} />
             <ImageLinkForm 
               onInputChange={this.onInputChange} 
               onSubmit={this.onSubmit}/>
@@ -176,9 +194,9 @@ class App extends Component {
         : 
           (
             this.state.route === "signin" ?
-              <SignIn onRouteChange={this.onRouteChange} /> 
+              <SignIn onRouteChange={this.onRouteChange} loadUser={this.loadUser} /> 
             : 
-              <Register onRouteChange={this.onRouteChange} />
+              <Register onRouteChange={this.onRouteChange} loadUser={this.loadUser} />
           )
           
         }
