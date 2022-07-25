@@ -1,5 +1,8 @@
 const handleRegister = (req, res, db, bcrypt) => {
   const { email, name, password } = req.body;
+  if(!email || !name || !password) {
+    return  res.status(400).json("Incorrect form submission");
+  }
   var hash = bcrypt.hashSync(password);
 
   db.transaction(trx => {
@@ -17,9 +20,9 @@ const handleRegister = (req, res, db, bcrypt) => {
           })
           .then(user => {
             res.json(user[0])
-          }).catch(err => res.status(404).json("Unable to get Email"))
+          }).catch(err => res.status(400).json("Unable to get Email"))
         }).then(trx.commit).catch(trx.rollback)
-  }).catch(err => res.status(404).json("Error while registering"))
+  }).catch(err => res.status(400).json("Error while registering"))
 }
 
 

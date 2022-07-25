@@ -32,9 +32,10 @@ class Register extends Component {
         password: this.state.password
       })
     }).then(res => res.json()).then(user => {
-      if(user) {
-        this.props.onRouteChange("signin");
+      if(user.id) {
         this.props.loadUser(user);
+        this.props.onRouteChange("signin");
+        
       }
     }).catch(err => console.log(err));
 

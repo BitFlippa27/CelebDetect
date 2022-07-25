@@ -92,9 +92,7 @@ const particlesInit = async (main) => {
       await loadFull(main);
     };
 
-const app = new Clarifai.App({
-  apiKey: '2fa81f0840ad467ba9df30d0494e228f'
-});
+
 
 class App extends Component {
   constructor() {
@@ -152,8 +150,12 @@ class App extends Component {
 
   onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.input})
-    app.models.predict(Clarifai.FACE_DETECT_MODEL, 
-      this.state.input).then(res => {
+    fetch("http://localhost:7777/imageurl", {
+      method: "post",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        input: this.state.input})
+    }).then(res => res.json()).then(res => {
         if(res) {
           fetch("http://localhost:7777/image", {
             method: "put",

@@ -34,6 +34,8 @@ app.get("/profile/:id", (req, res) => { profile.handleProfile(req, res, db) });
 app.listen(7777, () => { console.log("Running") });
 //get ImageCount
 app.put("/image", (req, res) => { image.handleImage(req, res, db) });
+app.post("/imageurl", (req, res) => { image.handleApiCall(req, res) });
+
 
 
 /* 
