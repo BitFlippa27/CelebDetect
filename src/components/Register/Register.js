@@ -48,7 +48,7 @@ class Register extends Component {
       <main className="pa4 black-80">
         <div className="measure ">
           <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-            <legend className="f2 fw6 ph0 mh0">Register</legend>
+            <legend className="f2 fw6 ph0 mh0">REGISTER</legend>
             <div className="mt3">
               <label className="db fw6 lh-copy f6" htmlFor="email-address">Name</label>
               <input 
