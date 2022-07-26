@@ -3,7 +3,7 @@
 A face detection application which detects if a human face exists in the picture.
 Simply paste the URL of your desired image and klick Detect !
 
-Techstack:
+### Techstack:
 
 - React.js
 - Node.js
