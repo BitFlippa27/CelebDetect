@@ -17,7 +17,7 @@ const particlesOptions =
           value: "linear-gradient(89deg, #FF5EDF  0%, #04C8DE 100% )"
         },
       },
-      fpsLimit: 120,
+      fpsLimit: 30,
       interactivity: {
         events: {
           onClick: {
@@ -33,10 +33,6 @@ const particlesOptions =
         modes: {
           push: {
             quantity: 4,
-          },
-          repulse: {
-            distance: 200,
-            duration: 0.4,
           },
         },
       },
@@ -67,12 +63,12 @@ const particlesOptions =
         number: {
           density: {
             enable: true,
-            area: 800,
+            area: 800
           },
           value: 100,
         },
         opacity: {
-          value: 0.2,
+          value: 0.1,
         },
         shape: {
           type: "circle",
@@ -145,6 +141,8 @@ class App extends Component {
   }
 
   onPictureSubmit = () => {
+    if(!this.state.input)
+      return
     this.setState({ imageUrl: this.state.input})
     fetch("https://sleepy-thicket-82949.herokuapp.com/imageurl", {
       method: "post",

@@ -4,7 +4,7 @@ import logo from "./logo3.png";
 
 const Logo = () => {
   return (
-    <div className="ma4 mt5">
+    <div className="ma4 mt5 logo">
       <div className="Tilt br2 shadow-2 pa3 grow" >
         <img style= {{paddingTop:"3px"}} src={logo} alt="logo" /> 
       </div>
