@@ -5,6 +5,25 @@ body {
   background: linear-gradient(89deg, #FF5EDF  0%, #04C8DE 100% );
 }
 
+@font-face {
+  font-family: 'SEGA LOGO FONT';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SEGA LOGO FONT'), url('./SEGA.woff') format('woff');
+  }
+
+.sega {
+  font-family: "SEGA LOGO FONT";
+  font-weight: 200;
+  color: blue;
+}
+
+.title {
+  font-weight: 200;
+  font-size: 50px;
+  color: blue;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -13,3 +32,4 @@ code {
 button {
   cursor: pointer;
 }
+

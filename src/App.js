@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import Navigation from "./components/Navigation/Navigation"
 import Logo from "./components/Logo/Logo";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
-import Rank from "./components/Rank/Rank";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import "tsparticles";
 import Clarifai from "clarifai";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
-import SignIn from "./components/SignIn/SignIn";
-import Register from "./components/Register/Register";
 
 
 //console.log(Clarifai);
@@ -101,7 +97,7 @@ class App extends Component {
       input: "",
       imageUrl: "",
       box: {},
-      route: "signin",
+      route: "register",
       signedIn: false,
       user: {
         id: "",
@@ -156,17 +152,6 @@ class App extends Component {
       body: JSON.stringify({
         input: this.state.input})
     }).then(res => res.json()).then(res => {
-        if(res) {
-          fetch("https://sleepy-thicket-82949.herokuapp.com/image", {
-            method: "put",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-              id: this.state.user.id
-             })
-            }).then(res => res.json()).then(count => {
-              this.setState(Object.assign(this.state.user, {entries: count}));
-            }).catch(err => console.log(err));
-        }
         this.displayFaceBox(this.calculateFaceLocation(res))
       }).catch(err => console.log(err))
 }
@@ -192,25 +177,14 @@ class App extends Component {
           init={particlesInit}
           options={particlesOptions}
       />
-        <Navigation onRouteChange={this.onRouteChange} signedIn={signedIn} />
-        {route === "home" ? 
-          <div> 
+          <div>
+            <h1 className='sega title'>Proposo AI</h1> 
             <Logo />
-            <Rank name={name} entries={entries} />
             <ImageLinkForm 
               onInputChange={this.onInputChange} 
               onPictureSubmit={this.onPictureSubmit}/>
             <FaceRecognition box={this.state.box} imageUrl={input} />
         </div>
-        : 
-          (
-            this.state.route === "signin" ?
-              <SignIn onRouteChange={this.onRouteChange} loadUser={this.loadUser} /> 
-            : 
-              <Register onRouteChange={this.onRouteChange} loadUser={this.loadUser} />
-          )
-          
-        }
       </div>
     )
   }
