@@ -91,7 +91,7 @@ class App extends Component {
     this.state = {
       input: "",
       imageUrl: "",
-      box: {},
+      boxes: [],
       route: "register",
       signedIn: false,
       user: {
@@ -115,7 +115,10 @@ class App extends Component {
   }
 
   calculateFaceLocation = data => {
+    console.log(data);
     const boundingBox = data.outputs[0].data.regions[0].region_info.bounding_box;
+    
+
     const image = document.getElementById("input-image");
     const width = Number(image.width);
     const height = Number(image.height);
@@ -128,15 +131,33 @@ class App extends Component {
     }
   }
 
-  displayFaceBox = box => {
-    this.setState({box: box});
+  calculateFaceLocations = data => {
+    console.log(data);
+    const image = document.getElementById("input-image");
+    const width = Number(image.width);
+    const height = Number(image.height);
 
-    console.log(box)
+    const allBoundigBoxes = data.outputs[0].data.regions.map(region => {
+      return  {
+        leftCol: region.region_info.bounding_box.left_col * width,
+        topRow: region.region_info.bounding_box.top_row * height,
+        rightCol: width - (region.region_info.bounding_box.right_col * width),
+        bottomRow: height - (region.region_info.bounding_box.bottom_row * height)
+      }
+    });
+    console.log("All BoundingBoxes", allBoundigBoxes);
+
+    
+    return allBoundigBoxes;
+  }
+
+  displayFaceBox = allBoxes => {
+    this.setState({boxes: allBoxes});
+    console.log(this.state.boxes)
   }
 
   onInputChange = event => {
    this.setState({ input: event.target.value });
-   console.log(this.state)
   }
 
   onPictureSubmit = () => {
@@ -149,7 +170,7 @@ class App extends Component {
       body: JSON.stringify({
         input: this.state.input})
     }).then(res => res.json()).then(res => {
-        this.displayFaceBox(this.calculateFaceLocation(res))
+        this.displayFaceBox(this.calculateFaceLocations(res))
       }).catch(err => console.log(err))
 }
 
@@ -180,7 +201,7 @@ class App extends Component {
             <ImageLinkForm 
               onInputChange={this.onInputChange} 
               onPictureSubmit={this.onPictureSubmit}/>
-            <FaceRecognition box={this.state.box} imageUrl={input} />
+            <FaceRecognition boxes={this.state.boxes} imageUrl={input} />
         </div>
       </div>
     )
