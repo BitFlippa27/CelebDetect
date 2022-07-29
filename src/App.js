@@ -9,7 +9,6 @@ import Clarifai from "clarifai";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 
 
-//console.log(Clarifai);
 const particlesOptions = 
     {
       background: {
