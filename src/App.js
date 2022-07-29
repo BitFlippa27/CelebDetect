@@ -160,9 +160,25 @@ class App extends Component {
    this.setState({ input: event.target.value });
   }
 
+checkFileExtension = () => {
+  const png = /.png$/;
+  const jpg = /.jpg$/
+  const jpeg = /.jpeg$/
+  
+  if(png.test(this.state.input))
+    return true
+  if(jpg.test(this.state.input))
+    return true  
+  if(jpeg.test(this.state.input))
+    return true
+} 
+
   onPictureSubmit = () => {
-    if(!this.state.input)
+    if(!this.state.input || !this.checkFileExtension()) {
+      alert("File not supported. Try .jpeg or .png")
       return
+    }
+
     this.setState({ imageUrl: this.state.input})
     fetch("https://sleepy-thicket-82949.herokuapp.com/imageurl", {
       method: "post",
