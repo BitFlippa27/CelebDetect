@@ -1,12 +1,7 @@
 import React from "react";
 import "./FaceRecognition.css";
-  
-const BoundingBox = ({box}) => {
-  console.log(box)
-  return (
-    <div className="bounding-box" style={{left: box.leftCol, top: box.topRow, right: box.rightCol, bottom: box.bottomRow}}></div>
-  )
-}
+import BoundingBox from "../BoundingBox/BoundingBox";
+
 
 const FaceRecognition = ({ imageUrl, boxes }) => {
   console.log(boxes)
