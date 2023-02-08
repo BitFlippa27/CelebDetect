@@ -83,26 +83,26 @@ const particlesInit = async (main) => {
       await loadFull(main);
     };
 
-
+const initialState = {
+  input: "",
+  imageUrl: "",
+  boxes: [],
+  celebrity: "",
+  route: "register",
+  signedIn: false,
+  user: {
+    id: "",
+    name: "",
+    email:"",
+    entries: 0,
+    joined: new Date()
+  }
+};
 
 class App extends Component {
   constructor() {
     super();
-    this.state = {
-      input: "",
-      imageUrl: "",
-      boxes: [],
-      celebrity: "",
-      route: "register",
-      signedIn: false,
-      user: {
-        id: "",
-        name: "",
-        email:"",
-        entries: 0,
-        joined: new Date()
-      }
-    };
+    this.state = initialState;
   }
 
   loadUser = data => {
@@ -193,7 +193,7 @@ checkFileExtension = () => {
 
   onRouteChange = route => {
     if(route === "signout") {
-      this.setState({signedIn: false});
+      this.setState(initialState);
     }
     else if(route === "home")
       this.setState({signedIn: true});
