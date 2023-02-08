@@ -7,13 +7,11 @@ import Rank from "./components/Rank/Rank";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import "tsparticles";
-import Clarifai from "clarifai";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import SignIn from "./components/SignIn/SignIn";
 import Register from "./components/Register/Register";
 
 
-//console.log(Clarifai);
 const particlesOptions = 
     {
       background: {
@@ -92,20 +90,20 @@ const particlesInit = async (main) => {
       await loadFull(main);
     };
 
-    const initialState = {
-      input: "",
-      imageUrl: "",
-      box: {},
-      route: "signin",
-      signedIn: false,
-      user: {
-        id: "",
-        name: "",
-        email:"",
-        entries: 0,
-        joined: new Date()
-      }
-    };
+const initialState = {
+  input: "",
+  imageUrl: "",
+  box: {},
+  route: "signin",
+  signedIn: false,
+  user: {
+    id: "",
+    name: "",
+    email:"",
+    entries: 0,
+    joined: new Date()
+  }
+};
 
 class App extends Component {
   constructor() {
