@@ -92,6 +92,7 @@ class App extends Component {
       input: "",
       imageUrl: "",
       boxes: [],
+      celebrity: "",
       route: "register",
       signedIn: false,
       user: {
@@ -145,7 +146,7 @@ class App extends Component {
         bottomRow: height - (region.region_info.bounding_box.bottom_row * height)
       }
     });
-    console.log("All BoundingBoxes", allBoundigBoxes);
+    console.log("Celebrity name", data.rawData.outputs[0].data.regions[0].data.concepts[0].name);
 
     
     return allBoundigBoxes;
@@ -180,7 +181,7 @@ checkFileExtension = () => {
     }
 
     this.setState({ imageUrl: this.state.input})
-    fetch("https://sleepy-thicket-82949.herokuapp.com/imageurl", {
+    fetch("http://localhost:7777/imageurl", {
       method: "post",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
