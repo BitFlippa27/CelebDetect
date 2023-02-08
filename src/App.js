@@ -92,12 +92,7 @@ const particlesInit = async (main) => {
       await loadFull(main);
     };
 
-
-
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
+    const initialState = {
       input: "",
       imageUrl: "",
       box: {},
@@ -111,6 +106,11 @@ class App extends Component {
         joined: new Date()
       }
     };
+
+class App extends Component {
+  constructor() {
+    super();
+    this.state = initialState;
   }
 
   loadUser = data => {
@@ -150,14 +150,14 @@ class App extends Component {
 
   onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.input})
-    fetch("https://sleepy-thicket-82949.herokuapp.com/imageurl", {
+    fetch("http://localhost:7777/imageurl", {
       method: "post",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
         input: this.state.input})
     }).then(res => res.json()).then(res => {
         if(res) {
-          fetch("https://sleepy-thicket-82949.herokuapp.com/image", {
+          fetch("http://localhost:7777/image", {
             method: "put",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
@@ -173,7 +173,7 @@ class App extends Component {
 
   onRouteChange = route => {
     if(route === "signout") {
-      this.setState({signedIn: false});
+      this.setState(initialState);
     }
     else if(route === "home")
       this.setState({signedIn: true});

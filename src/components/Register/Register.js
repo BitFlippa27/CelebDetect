@@ -23,7 +23,7 @@ class Register extends Component {
   }
 
   onSubmitRegister = () => {
-    fetch("https://sleepy-thicket-82949.herokuapp.com/register", { 
+    fetch("http://localhost:7777/register", { 
       method: "post",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
@@ -43,6 +43,7 @@ class Register extends Component {
   }
   
   render() {
+    const { onRouteChange } = this.props;
     return (
       <article className="br3 ba shadow-5 b--black-10 mv4 w-100 w-50-m w-25-l mw10 center">
       <main className="pa4 black-80">
@@ -83,6 +84,10 @@ class Register extends Component {
             className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" 
             type="submit" 
             value="Register"/>
+          </div>
+          <div className="lh-copy mt3">
+            <p onClick={() => onRouteChange("signin")} 
+              className="f6 link dim black db pointer">Sign In</p>
           </div>
         </div>
       </main>
