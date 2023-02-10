@@ -23,7 +23,7 @@ class Register extends Component {
   }
 
   onSubmitRegister = () => {
-    fetch("http://localhost:7777/register", { 
+    fetch("https://proposoai-api.onrender.com/register", { 
       method: "post",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
