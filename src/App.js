@@ -181,7 +181,7 @@ checkFileExtension = () => {
     }
 
     this.setState({ imageUrl: this.state.input})
-    fetch("http://localhost:7777/imageurl", {
+    fetch("https://proposoai-api.onrender.com/imageurl", {
       method: "post",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
