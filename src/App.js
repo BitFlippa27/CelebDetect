@@ -148,14 +148,14 @@ class App extends Component {
 
   onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.input})
-    fetch("http://localhost:7777/imageurl", {
+    fetch("https://proposoai-api.onrender.com/imageurl", {
       method: "post",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
         input: this.state.input})
     }).then(res => res.json()).then(res => {
         if(res) {
-          fetch("http://localhost:7777/image", {
+          fetch("https://proposoai-api.onrender.com/image", {
             method: "put",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
