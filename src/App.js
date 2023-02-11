@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
+import { ChakraProvider } from '@chakra-ui/react'
 import Logo from "./components/Logo/Logo";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import "tsparticles";
-import Clarifai from "clarifai";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
-
+import ResultAlert from "./components/ResultAlert/ResultAlert";
 
 const particlesOptions = 
     {
@@ -87,7 +87,7 @@ const initialState = {
   input: "",
   imageUrl: "",
   boxes: [],
-  celebrity: "",
+  celebrities: {},
   route: "register",
   signedIn: false,
   user: {
@@ -116,10 +116,8 @@ class App extends Component {
   }
 
   calculateFaceLocation = data => {
-    console.log(data);
     const boundingBox = data.outputs[0].data.regions[0].region_info.bounding_box;
-    
-
+  
     const image = document.getElementById("input-image");
     const width = Number(image.width);
     const height = Number(image.height);
@@ -133,7 +131,6 @@ class App extends Component {
   }
 
   calculateFaceLocations = data => {
-    console.log(data);
     const image = document.getElementById("input-image");
     const width = Number(image.width);
     const height = Number(image.height);
@@ -154,10 +151,12 @@ class App extends Component {
 
 
 
-    const capitalizedName = this.capitalizeName(celebrityName1, celebrityName2, celebrityName3);
-    alert(`The AI detected ${capitalizedName.result1} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[0].value) * 100}%
-    or ${capitalizedName.result2} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[1].value)* 100} % 
-    or ${capitalizedName.result3} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[2].value) * 100} % `);
+    const capitalizedNames = this.capitalizeName(celebrityName1, celebrityName2, celebrityName3);
+    this.displayResult(capitalizedNames);
+
+    alert(`The AI detected ${capitalizedNames.result1} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[0].value) * 100}%
+    or ${capitalizedNames.result2} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[1].value)* 100} % 
+    or ${capitalizedNames.result3} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[2].value) * 100} % `);
     
     return allBoundigBoxes;
   }
@@ -187,7 +186,12 @@ class App extends Component {
 
   displayFaceBox = allBoxes => {
     this.setState({boxes: allBoxes});
-    console.log(this.state.boxes)
+  }
+
+  displayResult = (celebrities) => {
+    console.log(celebrities)
+    this.setState({celebrities: celebrities});
+    console.log(this.state.celebrities);
   }
 
   onInputChange = event => {
@@ -235,7 +239,7 @@ checkFileExtension = () => {
   }
 
   render() {
-    const { signedIn, box, input, route, imageUrl} = this.state;
+    const { signedIn, box, input, route, imageUrl,celebrities, boxes} = this.state;
     const { name, entries } = this.state.user; 
     return (
       <div className="App">
@@ -251,13 +255,14 @@ checkFileExtension = () => {
             <ImageLinkForm 
               onInputChange={this.onInputChange} 
               onPictureSubmit={this.onPictureSubmit}/>
-            <FaceRecognition boxes={this.state.boxes} imageUrl={input} />
+            <FaceRecognition boxes={boxes} imageUrl={input} />
+            <ResultAlert celebrities={celebrities}/>
         </div>
       </div>
+
     )
   }
     
 }  
-
 
 export default App;
