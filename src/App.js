@@ -146,11 +146,44 @@ class App extends Component {
         bottomRow: height - (region.region_info.bounding_box.bottom_row * height)
       }
     });
-    console.log("Celebrity name", data.rawData.outputs[0].data.regions[0].data.concepts[0].name);
 
+    console.log("Celebrity name", data.rawData.outputs[0].data.regions[0].data.concepts[0].name);
+    const celebrityName1 = data.rawData.outputs[0].data.regions[0].data.concepts[0].name;
+    const celebrityName2 = data.rawData.outputs[0].data.regions[0].data.concepts[1].name;
+    const celebrityName3 = data.rawData.outputs[0].data.regions[0].data.concepts[2].name;
+
+
+
+    const capitalizedName = this.capitalizeName(celebrityName1, celebrityName2, celebrityName3);
+    alert(`The AI detected ${capitalizedName.result1} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[0].value) * 100}%
+    or ${capitalizedName.result2} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[1].value)* 100} % 
+    or ${capitalizedName.result3} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[2].value) * 100} % `);
     
     return allBoundigBoxes;
   }
+
+  capitalizeName = (celebrityName1, celebrityName2, celebrityName3) => {
+    const array = celebrityName1.split(" ");
+    const array2 = celebrityName2.split(" ");
+    const array3 = celebrityName3.split(" ");
+
+
+    for (let i = 0; i < array.length; i++) {
+      array[i] = array[i].charAt(0).toUpperCase() + array[i].slice(1);
+      array2[i] = array2[i].charAt(0).toUpperCase() + array2[i].slice(1);
+      array3[i] = array3[i].charAt(0).toUpperCase() + array3[i].slice(1);
+    }
+    const result1 = array.join(" ");
+    const result2 = array2.join(" ");
+    const result3 = array3.join(" ");
+
+    return {
+      result1: result1,
+      result2: result2,
+      result3: result3,
+    };
+  }
+
 
   displayFaceBox = allBoxes => {
     this.setState({boxes: allBoxes});
