@@ -144,7 +144,6 @@ class App extends Component {
       }
     });
 
-    console.log("Celebrity name", data.rawData.outputs[0].data.regions[0].data.concepts[0].name);
     const celebrityName1 = data.rawData.outputs[0].data.regions[0].data.concepts[0].name;
     const celebrityName2 = data.rawData.outputs[0].data.regions[0].data.concepts[1].name;
     const celebrityName3 = data.rawData.outputs[0].data.regions[0].data.concepts[2].name;
@@ -154,9 +153,9 @@ class App extends Component {
     const capitalizedNames = this.capitalizeName(celebrityName1, celebrityName2, celebrityName3);
     this.displayResult(capitalizedNames);
 
-    //alert(`The AI detected ${capitalizedNames.result1} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[0].value) * 100}%
-    //or ${capitalizedNames.result2} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[1].value)* 100} % 
-    //or ${capitalizedNames.result3} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[2].value) * 100} % `);
+    alert(`The AI detected ${capitalizedNames.result1} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[0].value) * 100}%
+    or ${capitalizedNames.result2} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[1].value)* 100} % 
+    or ${capitalizedNames.result3} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[2].value) * 100} % `);
     
     return allBoundigBoxes;
   }
@@ -189,9 +188,7 @@ class App extends Component {
   }
 
   displayResult = (celebrities) => {
-    console.log(celebrities)
     this.setState({celebrities: celebrities});
-    console.log(this.state.celebrities);
   }
 
   onInputChange = event => {
@@ -242,7 +239,6 @@ checkFileExtension = () => {
     const { signedIn, box, input, route, imageUrl,celebrities, boxes} = this.state;
     const { name, entries } = this.state.user; 
     return (
-    
         <div className="App">
           <Particles
             className="particles"
