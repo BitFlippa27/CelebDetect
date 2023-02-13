@@ -2,7 +2,7 @@
 - Login Component with shared props to encapsulate Login and Register
 - App Container
 - Input Validation Message for User
-- Image upload
+- Upload Component
 - Virus/rootkit checker
 
 - make all Components smaller in general
