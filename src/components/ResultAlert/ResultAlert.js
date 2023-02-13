@@ -1,26 +1,33 @@
-import React from "react";
-import Alert from 'react-bootstrap/Alert';
+import React, { useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 const ResultAlert = ({celebrities}) => {
+  const [show, setShow] = useState(true);
 
   console.log(celebrities);
-  if(celebrities.hasOwnProperty("result1")) {
-    return (
-    <Alert variant="success">
-      <Alert.Heading>Congrats the AI detected the face !</Alert.Heading>
-      <p>
-        aklsöjdöalskdjlksajalksjd
-      </p>
-      <hr />
-      <p className="mb-0">
-        Whenever you need to, be sure to use margin utilities to keep things
-        nice and tidy.
-      </p>
-    </Alert>
-    )
-  }
-  return;
-  
+  return (celebrities.hasOwnProperty("result1")) ? (
+    <div
+    className="modal show"
+    style={{ display: 'block', position: 'initial' }}
+  >
+    <Modal.Dialog>
+      <Modal.Header closeButton>
+        <Modal.Title>Modal title</Modal.Title>
+      </Modal.Header>
+
+      <Modal.Body>
+        <p>Modal body text goes here.</p>
+      </Modal.Body>
+
+      <Modal.Footer>
+        <Button variant="secondary">Close</Button>
+        <Button variant="primary">Save changes</Button>
+      </Modal.Footer>
+    </Modal.Dialog>
+    </div>
+  ) : "";
+    
 }
 
 export default ResultAlert;

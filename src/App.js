@@ -47,7 +47,7 @@ const particlesOptions =
           width: 1,
         },
         collisions: {
-          enable: true,
+          enable: false,
         },
         move: {
           direction: "none",
@@ -154,9 +154,9 @@ class App extends Component {
     const capitalizedNames = this.capitalizeName(celebrityName1, celebrityName2, celebrityName3);
     this.displayResult(capitalizedNames);
 
-    alert(`The AI detected ${capitalizedNames.result1} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[0].value) * 100}%
-    or ${capitalizedNames.result2} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[1].value)* 100} % 
-    or ${capitalizedNames.result3} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[2].value) * 100} % `);
+    //alert(`The AI detected ${capitalizedNames.result1} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[0].value) * 100}%
+    //or ${capitalizedNames.result2} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[1].value)* 100} % 
+    //or ${capitalizedNames.result3} with a probability of ${Number(data.rawData.outputs[0].data.regions[0].data.concepts[2].value) * 100} % `);
     
     return allBoundigBoxes;
   }
@@ -242,24 +242,23 @@ checkFileExtension = () => {
     const { signedIn, box, input, route, imageUrl,celebrities, boxes} = this.state;
     const { name, entries } = this.state.user; 
     return (
-      <div className="App">
-        <Particles
-          className="particles"
-          id="tsparticles"
-          init={particlesInit}
-          options={particlesOptions}
-      />
-          <div>
-            <h1 className='sega title'>Proposo AI</h1> 
-            <Logo />
-            <ImageLinkForm 
-              onInputChange={this.onInputChange} 
-              onPictureSubmit={this.onPictureSubmit}/>
-            <FaceRecognition boxes={boxes} imageUrl={input} />
-            <ResultAlert celebrities={celebrities}/>
+    
+        <div className="App">
+          <Particles
+            className="particles"
+            id="tsparticles"
+            init={particlesInit}
+            options={particlesOptions}
+        />
+            <div>
+              <h1 className='sega title'>Proposo AI</h1> 
+              <Logo />
+              <ImageLinkForm 
+                onInputChange={this.onInputChange} 
+                onPictureSubmit={this.onPictureSubmit}/>
+              <FaceRecognition boxes={boxes} imageUrl={input} />
+          </div>
         </div>
-      </div>
-
     )
   }
     

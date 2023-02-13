@@ -1,6 +1,7 @@
 import React from "react";
 import "./FaceRecognition.css";
 import BoundingBox from "../BoundingBox/BoundingBox";
+import ResultAlert from "../ResultAlert/ResultAlert";
 
 
 const FaceRecognition = ({ imageUrl, boxes }) => {
