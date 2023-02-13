@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import { ChakraProvider } from '@chakra-ui/react'
 import Logo from "./components/Logo/Logo";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import "tsparticles";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
-import ResultAlert from "./components/ResultAlert/ResultAlert";
 
 const particlesOptions = 
     {

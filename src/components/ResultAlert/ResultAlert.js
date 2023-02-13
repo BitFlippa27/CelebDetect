@@ -6,7 +6,7 @@ const ResultAlert = ({celebrities}) => {
   const [show, setShow] = useState(true);
 
   console.log(celebrities);
-  return (celebrities.hasOwnProperty("result1")) ? (
+  return (
     <div
     className="modal show"
     style={{ display: 'block', position: 'initial' }}
@@ -26,8 +26,7 @@ const ResultAlert = ({celebrities}) => {
       </Modal.Footer>
     </Modal.Dialog>
     </div>
-  ) : "";
-    
+  );
 }
 
 export default ResultAlert;

@@ -15,8 +15,10 @@
   justify-content: flex-start;
 }
 
+
 @media only screen and (max-width:  600px) {
   .logo {
     justify-content: center;
   }
 }
+
