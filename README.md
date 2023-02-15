@@ -10,7 +10,7 @@ Simply paste the URL of your desired image and klick Detect !
 - React.js
 - Node.js
 - Tachyons (CSS)
-- PostgreSQL through Knex.js (DB)
+- PostgreSQL through Knex.js (withLogin branch)
 - Clarifai (Deep Learning Platform API)
 
 
