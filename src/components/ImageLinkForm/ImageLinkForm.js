@@ -6,7 +6,7 @@ const ImageLinkForm = ({ onInputChange, onPictureSubmit }) => {
   return (
     <div className="mt5">
       <p className="f3 b white pa3 "> 
-      Paste an URL to an image in the form below click detect and see your amazing results !
+      Paste an URL to an image in the file formats stated below. Just click detect and see your amazing results !
       <br /> Supported formats: <br />.jpeg .jpg .png
       </p>
       <div className="center">
