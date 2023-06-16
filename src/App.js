@@ -207,8 +207,12 @@ checkFileExtension = () => {
 } 
 
   onPictureSubmit = () => {
-    if(!this.state.input || !this.checkFileExtension()) {
-      alert("File not supported. Try .jpeg or .png")
+    if(!this.state.input) {
+      alert("Please paste an URL");
+      return
+    }
+    if(!this.checkFileExtension()) {
+      alert("File not supported. Try .jpeg, .jpg or .png");
       return
     }
 
@@ -245,7 +249,7 @@ checkFileExtension = () => {
             options={particlesOptions}
         />
             <div>
-              <h1 className='sega title'>Proposo AI</h1> 
+              <h1 className='sega title'>CelebDetect</h1> 
               <Logo />
               <ImageLinkForm 
                 onInputChange={this.onInputChange} 
