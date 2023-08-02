@@ -6,76 +6,9 @@ import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import "tsparticles";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
+import Spinner from './components/Spinner/Spinner';
+import { particlesOptions } from './components/utils/particles';
 
-const particlesOptions = 
-    {
-      background: {
-        color: {
-          value: "linear-gradient(89deg, #FF5EDF  0%, #04C8DE 100% )"
-        },
-      },
-      fpsLimit: 30,
-      interactivity: {
-        events: {
-          onClick: {
-            enable: true,
-            mode: "push",
-          },
-          onHover: {
-            enable: true,
-            mode: "grab",
-          },
-          resize: true,
-        },
-        modes: {
-          push: {
-            quantity: 4,
-          },
-        },
-      },
-      particles: {
-        color: {
-          value: "#ffffff",
-        },
-        links: {
-          color: "#ffffff",
-          distance: 150,
-          enable: true,
-          opacity: 0.5,
-          width: 1,
-        },
-        collisions: {
-          enable: false,
-        },
-        move: {
-          direction: "none",
-          enable: true,
-          outModes: {
-            default: "bounce",
-          },
-          random: false,
-          speed: 3,
-          straight: false,
-        },
-        number: {
-          density: {
-            enable: true,
-            area: 800
-          },
-          value: 100,
-        },
-        opacity: {
-          value: 0.1,
-        },
-        shape: {
-          type: "circle",
-        },
-        size: {
-          value: { min: 1, max: 5 },
-        },
-      },
-      detectRetina: true,
-    }
 
 const particlesInit = async (main) => {
       await loadFull(main);
@@ -94,7 +27,8 @@ const initialState = {
     email:"",
     entries: 0,
     joined: new Date()
-  }
+  },
+  isLoading: false
 };
 
 class App extends Component {
@@ -190,6 +124,7 @@ class App extends Component {
   }
 
   onInputChange = event => {
+    this.setState({boxes: []});
    this.setState({ input: event.target.value });
   }
 
@@ -216,15 +151,18 @@ checkFileExtension = () => {
       return
     }
 
-    this.setState({ imageUrl: this.state.input})
+    this.setState({ imageUrl: this.state.input});
+    this.setState({ isLoading: true});
+
     fetch("https://proposoai-api.onrender.com/imageurl", {
       method: "post",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
         input: this.state.input})
     }).then(res => res.json()).then(res => {
-        this.displayFaceBox(this.calculateFaceLocations(res))
+        this.displayFaceBox(this.calculateFaceLocations(res));
       }).catch(err => console.log(err))
+      this.setState({ isLoading: false});
 }
 
   onRouteChange = route => {
@@ -238,7 +176,7 @@ checkFileExtension = () => {
   }
 
   render() {
-    const { signedIn, box, input, route, imageUrl,celebrities, boxes} = this.state;
+    const { signedIn, box, input, route, imageUrl,celebrities, boxes, isLoading} = this.state;
     const { name, entries } = this.state.user; 
     return (
         <div className="App">
@@ -248,14 +186,16 @@ checkFileExtension = () => {
             init={particlesInit}
             options={particlesOptions}
         />
-            <div>
-              <h1 className='sega title'>CelebDetect</h1> 
-              <Logo />
-              <ImageLinkForm 
-                onInputChange={this.onInputChange} 
-                onPictureSubmit={this.onPictureSubmit}/>
-              <FaceRecognition boxes={boxes} imageUrl={input} />
-          </div>
+            {this.state.isLoading ? (<Spinner />) : (
+              <div>
+                <h1 className='sega title'>CelebDetect</h1> 
+                <Logo />
+                <ImageLinkForm 
+                  onInputChange={this.onInputChange} 
+                  onPictureSubmit={this.onPictureSubmit}/>
+                <FaceRecognition boxes={boxes} imageUrl={input} />
+              </div>
+            )}
         </div>
     )
   }  
