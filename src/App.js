@@ -37,6 +37,11 @@ class App extends Component {
     this.state = initialState;
   }
 
+  componentDidMount() {
+    this.setState({ isLoading: false});
+  }
+
+
   loadUser = data => {
     this.setState({user: {
       id: data.id,
@@ -125,7 +130,7 @@ class App extends Component {
 
   onInputChange = event => {
     this.setState({boxes: []});
-   this.setState({ input: event.target.value });
+    this.setState({ input: event.target.value });
   }
 
 checkFileExtension = () => {
@@ -142,6 +147,8 @@ checkFileExtension = () => {
 } 
 
   onPictureSubmit = () => {
+    this.setState({ isLoading: true});
+
     if(!this.state.input) {
       alert("Please paste an URL");
       return
@@ -152,8 +159,6 @@ checkFileExtension = () => {
     }
 
     this.setState({ imageUrl: this.state.input});
-    this.setState({ isLoading: true});
-
     fetch("https://proposoai-api.onrender.com/imageurl", {
       method: "post",
       headers: {"Content-Type": "application/json"},
@@ -186,7 +191,7 @@ checkFileExtension = () => {
             init={particlesInit}
             options={particlesOptions}
         />
-            {this.state.isLoading ? (<Spinner />) : (
+            {isLoading ? (<Spinner />) : (
               <div>
                 <h1 className='sega title'>CelebDetect</h1> 
                 <Logo />
